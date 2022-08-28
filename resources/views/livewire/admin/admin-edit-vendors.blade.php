@@ -10,7 +10,12 @@
                                 <p class="card-title">Edit Shop</p>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('admin.manageshops')}}" class="btn btn-success pull-right">All Shops</a>
+                                @if (Auth::user()->usertype === 'vendor')
+                                    <a href="{{route('vendor.manageshops')}}" class="btn btn-success pull-right">View Your Shop</a>
+                                @else
+                                    <a href="{{route('admin.manageshops')}}" class="btn btn-success pull-right">All Shops</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <p class="pull-left card-title">All Registered Shops</p>
+                                @if (Auth::user()->usertype === 'ADM')
+                                    <p class="pull-left card-title">All Registered Shops</p>
+                                @else
+                                    <p class="pull-left card-title">Manage Your Shop</p>
+                                @endif
+
                             </div>
                             <div class="col-md-6">
                             </div>
@@ -44,8 +49,12 @@
                                         </td>
                                         <td>{{$vendor->created_at}}</td>
                                         <td>
-                                            <a href="{{route('admin.edit_vendors',['vendor_id'=>$vendor->id])}}"><i class="fa fa-edit fa-2x"></i></a>
-                                            <a href="#" onclick="confirm('Are you sure to delete this Shop?') || event.stopImmediatePropagation()" wire:click.prevent="deleteShop({{$vendor->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @if (Auth::user()->usertype === 'vendor')
+                                                <a href="{{route('vendor.edit_vendors',['vendor_id'=>$vendor->id])}}"><i class="fa fa-edit fa-2x"></i></a>
+                                            @else
+                                                <a href="{{route('admin.edit_vendors',['vendor_id'=>$vendor->id])}}"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="#" onclick="confirm('Are you sure to delete this Shop?') || event.stopImmediatePropagation()" wire:click.prevent="deleteShop({{$vendor->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

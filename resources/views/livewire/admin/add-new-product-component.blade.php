@@ -102,16 +102,18 @@
                                 @error('images')<span class="text-danger">{{$message}}</span> @enderror <br>
                           </div>
 
-                          <div class="form-group">
-                            <label>Which Shop to Add</label>
-                              <select name="" id="" class="form-control" wire:model="shop">
-                                  <option value="">Select Shop</option>
-                                  @foreach ($shops as $shop)
-                                    <option value="{{$shop->id}}">{{$shop->name}}</option>
-                                  @endforeach
-                              </select>
-                              @error('shop')<span class="text-danger">{{$message}}</span> @enderror <br>
-                          </div>
+                          @if(Auth::user()->usertype === 'ADM')
+                            <div class="form-group">
+                                <label>Which Shop to Add</label>
+                                <select name="" id="" class="form-control" wire:model="shop">
+                                    <option value="">Select Shop</option>
+                                    @foreach ($shops as $shop)
+                                        <option value="{{$shop->id}}">{{$shop->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('shop')<span class="text-danger">{{$message}}</span> @enderror <br>
+                            </div>
+                           @endif
 
                           <div class="form-group">
                             <label>Category</label>

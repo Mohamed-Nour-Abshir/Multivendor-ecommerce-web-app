@@ -154,10 +154,25 @@ class AddNewProductComponent extends Component
     }
     public function render()
     {
-        $shops = ShopSeller::all();
-        $categories = category::all();
+        if(Auth::user()->usertype === 'vendor'){
+            $categories = category::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->get();
+        }
+        else{
+            $categories = category::all();
+        }
         $scategories = subcategory::where('category_id',$this->category_id)->get();
-        $pattributes = ProductAttribute::all();
+        if(Auth::user()->usertype === 'vendor'){
+            $pattributes = ProductAttribute::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->get();
+        }
+        else{
+            $pattributes = ProductAttribute::all();
+        }
+        if(Auth::user()->usertype === 'ADM'){
+            $shops = ShopSeller::all();
+        }
+        else{
+            $shops = null;
+        }
         return view('livewire.admin.add-new-product-component',['categories'=>$categories,'scategories'=>$scategories,'pattributes'=>$pattributes,'shops'=>$shops])->layout('layouts.admin');
     }
 }

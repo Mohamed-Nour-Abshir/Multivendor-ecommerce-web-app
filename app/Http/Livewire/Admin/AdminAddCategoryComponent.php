@@ -49,7 +49,6 @@ class AdminAddCategoryComponent extends Component
             if(Auth::user()->usertype === 'vendor'){
                 $category->shop_id = Auth::user()->shopseller->id;
             }
-            $category->shop_id = $this->shop;
             $category->save();
         }
         session()->flash('message', 'One Category Added Successfully');

@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\ProductAttribute;
 use Livewire\Component;
+use App\Models\ProductAttribute;
+use Illuminate\Support\Facades\Auth;
 
 class AdminProductAttributesComponent extends Component
 {
@@ -14,7 +15,12 @@ class AdminProductAttributesComponent extends Component
     }
     public function render()
     {
-        $pattributes = ProductAttribute::paginate(10);
+        if(Auth::user()->usertype === 'vendor'){
+            $pattributes = ProductAttribute::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->paginate(5);
+        }
+        else{
+            $pattributes = ProductAttribute::paginate(10);
+        }
         return view('livewire.admin.admin-product-attributes-component',['pattributes'=>$pattributes])->layout('layouts.admin');
     }
 }

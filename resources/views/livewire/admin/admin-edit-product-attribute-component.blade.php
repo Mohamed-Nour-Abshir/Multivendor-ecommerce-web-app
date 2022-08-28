@@ -10,7 +10,12 @@
                                 <p class="card-title">Edit Attribute</p>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('admin.attributes')}}" class="btn btn-success pull-right">All Attributes</a>
+                                @if (Auth::user()->usertype === 'vendor')
+                                    <a href="{{route('vendor.attributes')}}" class="btn btn-success pull-right">All Attributes</a>
+                                @else
+                                    <a href="{{route('admin.attributes')}}" class="btn btn-success pull-right">All Attributes</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>

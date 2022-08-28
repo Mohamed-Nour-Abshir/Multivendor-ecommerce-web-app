@@ -22,7 +22,12 @@
                                 <p class="pull-left card-title">All Attributes</p>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('admin.add_attributes')}}" class="btn btn-success pull-right">Add Attribute</a>
+                                @if (Auth::user()->usertype === 'vendor')
+                                    <a href="{{route('vendor.add_attributes')}}" class="btn btn-success pull-right">Add Attribute</a>
+                                @else
+                                    <a href="{{route('admin.add_attributes')}}" class="btn btn-success pull-right">Add Attribute</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -46,8 +51,13 @@
                                         <td>{{$pattribute->name}}</td>
                                         <td>{{$pattribute->created_at}}</td>
                                         <td>
-                                            <a href="{{route('admin.edit_attributes',['attribute_id'=>$pattribute->id])}}"><i class="fa fa-edit fa-2x"></i></a>
-                                            <a href="#" onclick="confirm('Are you sure to Delete this Attribute?') || event.stopImmediatePropagation()" wire:click.prevent="deleteAttribute({{$pattribute->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @if (Auth::user()->usertype === 'vendor')
+                                                <a href="{{route('vendor.edit_attributes',['attribute_id'=>$pattribute->id])}}"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="#" onclick="confirm('Are you sure to Delete this Attribute?') || event.stopImmediatePropagation()" wire:click.prevent="deleteAttribute({{$pattribute->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @else
+                                                <a href="{{route('admin.edit_attributes',['attribute_id'=>$pattribute->id])}}"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="#" onclick="confirm('Are you sure to Delete this Attribute?') || event.stopImmediatePropagation()" wire:click.prevent="deleteAttribute({{$pattribute->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

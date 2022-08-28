@@ -25,4 +25,8 @@ class Order extends Model
     public function transactions(){
         return $this->hasOne(Transaction::class);
     }
+
+    public function shop(){
+        return $this->belongsTo(ShopSeller::class, 'shop_id');
+    }
 }

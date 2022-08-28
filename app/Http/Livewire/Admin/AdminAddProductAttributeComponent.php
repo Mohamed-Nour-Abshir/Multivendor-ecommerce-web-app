@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\ProductAttribute;
 use Livewire\Component;
+use App\Models\ProductAttribute;
+use Illuminate\Support\Facades\Auth;
 
 class AdminAddProductAttributeComponent extends Component
 {
     public $name;
+    public $shop_id;
 
     public function updated($fields){
         $this->validateOnly($fields,[
@@ -21,6 +23,9 @@ class AdminAddProductAttributeComponent extends Component
 
         $pattribute = new ProductAttribute();
         $pattribute->name = $this->name;
+        if(Auth::user()->usertype === 'vendor'){
+            $pattribute->shop_id = Auth::user()->shopseller->id;
+        }
         $pattribute->save();
         session()->flash('message','Attribute has been added Successfully!');
     }
