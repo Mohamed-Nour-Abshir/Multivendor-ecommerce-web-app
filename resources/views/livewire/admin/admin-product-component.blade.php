@@ -32,7 +32,9 @@
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Stock</th>
-                                <th>Shop Name</th>
+                                @if(Auth::user()->usertype === 'ADM')
+                                    <th>Shop Name</th>
+                                @endif
                                 <th>Price</th>
                                 <th>Sale Price</th>
                                 <th>Category</th>
@@ -47,7 +49,9 @@
                                     <td><img src="{{asset('assets/images/products')}}/{{$product->image}}" alt="products" width="60"></td>
                                     <td>{{$product->name}}</td>
                                     <td>{{$product->stock_status}}</td>
-                                    <td>{{$product->shop->name}}</td>
+                                    @if(Auth::user()->usertype === 'ADM')
+                                        <td>{{$product->shop->name}}</td>
+                                    @endif
                                     <td>${{$product->regular_price}}</td>
                                     <td>${{$product->sale_price}}</td>
                                     <td>{{$product->category->name}}</td>

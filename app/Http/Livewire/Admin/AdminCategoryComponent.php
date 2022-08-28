@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Livewire\Component;
 use App\Models\category;
 use App\Models\subcategory;
-use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class AdminCategoryComponent extends Component
 {
@@ -21,7 +22,12 @@ class AdminCategoryComponent extends Component
     }
     public function render()
     {
-        $categoires = category::paginate(5);
+        if(Auth::user()->usertype === 'vendor'){
+            $categoires = category::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->paginate(5);
+        }
+        else{
+            $categoires = category::paginate(5);
+        }
         return view('livewire.admin.admin-category-component',['categories'=>$categoires])->layout('layouts.admin');
     }
 }

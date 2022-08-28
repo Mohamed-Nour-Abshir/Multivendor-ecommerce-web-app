@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->bigInteger('shop_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('shop_id')->references('id')->on('shop_sellers')->onDelete('cascade');
         });
     }
 

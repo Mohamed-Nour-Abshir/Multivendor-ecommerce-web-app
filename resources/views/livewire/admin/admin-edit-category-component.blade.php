@@ -10,7 +10,11 @@
                                 <p class="card-title">Edit Category</p>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('admin.categories')}}" class="btn btn-success pull-right">All Categories</a>
+                                @if(Auth::user()->usertype === 'vendor')
+                                    <a href="{{route('vendor.categories')}}" class="btn btn-success pull-right">All Categories</a>
+                                @else
+                                    <a href="{{route('admin.categories')}}" class="btn btn-success pull-right">All Categories</a>
+                                @endif
                             </div>
                         </div>
                     </div>

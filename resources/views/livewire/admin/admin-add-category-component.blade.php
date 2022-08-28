@@ -10,7 +10,11 @@
                                 <p class="card-title">Add New Category</p>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('admin.categories')}}" class="btn btn-success pull-right">All Categories</a>
+                                @if(Auth::user()->usertype === 'vendor')
+                                    <a href="{{route('vendor.categories')}}" class="btn btn-success pull-right">All Categories</a>
+                                @else
+                                    <a href="{{route('admin.categories')}}" class="btn btn-success pull-right">All Categories</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -36,6 +40,16 @@
                                         <option value="">None</option>
                                         @foreach ($categories as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Which Shop To add</label>
+                                    <select class="form-control input-md" wire:model="shop">
+                                        <option value="">None</option>
+                                        @foreach ($shops as $shop)
+                                            <option value="{{$shop->id}}">{{$shop->name}}</option>
                                         @endforeach
                                     </select>
                             </div>

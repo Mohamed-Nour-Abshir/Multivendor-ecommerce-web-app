@@ -32,4 +32,8 @@ class ShopSeller extends Model
     public function products(){
         return $this->hasMany(product::class, 'shop_id');
     }
+
+    public function categories(){
+        return $this->hasMany(category::class,'shop_id');
+    }
 }
