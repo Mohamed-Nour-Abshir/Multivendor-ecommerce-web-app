@@ -19,8 +19,8 @@ return new class extends Migration
             $table->enum('type',['fixed', 'percent']);
             $table->decimal('value');
             $table->decimal('cart_value');
-            $table->timestamps();
             $table->bigInteger('shop_id')->unsigned()->nullable();
+            $table->timestamps();
             $table->foreign('shop_id')->references('id')->on('shop_sellers')->onDelete('cascade');
         });
     }

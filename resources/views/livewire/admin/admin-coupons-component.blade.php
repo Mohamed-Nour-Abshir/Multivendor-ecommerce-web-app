@@ -9,7 +9,11 @@
                                 <p class="card-title">All Coupons</p>
                             </div>
                             <div class="col-md-6">
+                            @if(Auth::user()->usertype === 'vendor')
+                                <a href="{{route('vendor.addcoupon')}}" class="btn btn-success pull-right">Add Coupon</a>
+                            @else
                                 <a href="{{route('admin.addcoupon')}}" class="btn btn-success pull-right">Add Coupon</a>
+                            @endif
                             </div>
                         </div>
                     </div>
@@ -26,6 +30,9 @@
                                     <th>Coupon Value</th>
                                     <th>Cart Value</th>
                                     <th>Expiry Date</th>
+                                    @if (Auth::user()->usertype === 'ADM')
+                                        <th>Shop Name</th>
+                                    @endif
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -43,9 +50,17 @@
 
                                         <td>{{$coupon->cart_value}}</td>
                                         <td>{{$coupon->expiry_date}}</td>
+                                        @if (Auth::user()->usertype === 'ADM')
+                                            <td>{{$coupon->shop->name}}</td>
+                                        @endif
                                         <td>
-                                            <a href="{{route('admin.editcoupon',['coupon_id'=>$coupon->id])}}"><i class="fa fa-edit fa-2x"></i></a>
-                                            <a href="#" onclick="confirm('Are you sure to Delete this Coupon?') || event.stopImmediatePropagation()" wire:click.prevent="deletecoupon({{$coupon->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @if(Auth::user()->usertype === 'vendor')
+                                                <a href="{{route('vendor.editcoupon',['coupon_id'=>$coupon->id])}}"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="#" onclick="confirm('Are you sure to Delete this Coupon?') || event.stopImmediatePropagation()" wire:click.prevent="deletecoupon({{$coupon->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @else
+                                                <a href="{{route('admin.editcoupon',['coupon_id'=>$coupon->id])}}"><i class="fa fa-edit fa-2x"></i></a>
+                                                <a href="#" onclick="confirm('Are you sure to Delete this Coupon?') || event.stopImmediatePropagation()" wire:click.prevent="deletecoupon({{$coupon->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

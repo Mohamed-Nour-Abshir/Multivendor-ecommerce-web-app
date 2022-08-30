@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Coupon;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class AdminAddCouponComponent extends Component
 {
@@ -12,6 +13,7 @@ class AdminAddCouponComponent extends Component
     public $value;
     public $cart_value;
     public $expiry_date;
+    public $shop_id;
 
     public function updated($fields){
         $this->validateOnly($fields, [
@@ -36,6 +38,9 @@ class AdminAddCouponComponent extends Component
      $coupon->value = $this->value;
      $coupon->cart_value = $this->cart_value;
      $coupon->expiry_date = $this->expiry_date;
+     if(Auth::user()->usertype === 'vendor'){
+        $coupon->shop_id = Auth::user()->shopseller->id;
+    }
      $coupon->save();
      session()->flash('message', 'Coupon has been added successfully');
     }

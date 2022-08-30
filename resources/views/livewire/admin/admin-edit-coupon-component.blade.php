@@ -10,7 +10,11 @@
                                 <p class="card-title">Edit Coupon</p>
                             </div>
                             <div class="col-md-6">
+                            @if(Auth::user()->usertype === 'vendor')
+                                <a href="{{route('vendor.coupons')}}" class="btn btn-success pull-right">All Coupons</a>
+                            @else
                                 <a href="{{route('admin.coupons')}}" class="btn btn-success pull-right">All Coupons</a>
+                            @endif
                             </div>
                         </div>
                     </div>
