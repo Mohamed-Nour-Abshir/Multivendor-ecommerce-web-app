@@ -9,11 +9,7 @@
                                 <p class="pull-left card-title">All Categories</p>
                             </div>
                             <div class="col-md-6">
-                                @if(Auth::user()->usertype === 'vendor')
-                                    <a href="{{route('vendor.Add')}}" class="btn btn-success pull-right">Add Category</a>
-                                @else
-                                    <a href="{{route('admin.Add')}}" class="btn btn-success pull-right">Add Category</a>
-                                @endif
+                                <a href="{{route('admin.Add')}}" class="btn btn-success pull-right">Add Category</a>
                             </div>
                         </div>
                     </div>
@@ -28,9 +24,6 @@
                                 <th>Category Name</th>
                                 <th>Slug</th>
                                 <th>Sub Category</th>
-                                @if(Auth::user()->usertype === 'ADM')
-                                    <th>Which Shop</th>
-                                @endif
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -50,15 +43,8 @@
                                             @endforeach
                                         </ul>
                                     </td>
-                                    @if(Auth::user()->usertype === 'ADM')
-                                        <td>{{$category->shop->name}}</td>
-                                    @endif
                                     <td>
-                                        @if(Auth::user()->usertype === 'vendor')
-                                            <a href="{{route('vendor.Edit',['category_slug'=>$category->slug])}}"><i class="fa fa-edit fa-2x"></i></a>
-                                        @else
-                                            <a href="{{route('admin.Edit',['category_slug'=>$category->slug])}}"><i class="fa fa-edit fa-2x"></i></a>
-                                        @endif
+                                        <a href="{{route('admin.Edit',['category_slug'=>$category->slug])}}"><i class="fa fa-edit fa-2x"></i></a>
                                         <a href="#" onclick="confirm('Are you sure to Delete this Category?') || event.stopImmediatePropagation()" wire:click.prevent="deleteCategory({{$category->id}})"><i class="fa fa-times fa-2x text-danger" style="margin-left: 10px;"></i></a>
                                     </td>
                                 </tr>

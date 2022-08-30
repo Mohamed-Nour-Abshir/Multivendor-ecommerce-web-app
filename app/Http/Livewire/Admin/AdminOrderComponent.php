@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -22,7 +23,12 @@ class AdminOrderComponent extends Component
     }
     public function render()
     {
-        $orders = Order::orderBy('created_at','DESC')->paginate(12);
-        return view('livewire.admin.admin-order-component',['orders'=>$orders])->layout('layouts.admin');
+        if(Auth::user()->usertype === 'vendor'){
+            $orders = Order::where('shop_id',Auth::user()->shopseller->id)->orderBy('created_at','DESC')->paginate(12);
+        }
+        else{
+            $orders = Order::orderBy('created_at','DESC')->paginate(12);
+        }
+            return view('livewire.admin.admin-order-component',['orders'=>$orders])->layout('layouts.admin');
     }
 }

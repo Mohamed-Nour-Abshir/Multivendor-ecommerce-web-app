@@ -14,9 +14,6 @@ class AdminAddCategoryComponent extends Component
     public $name;
     public $slug;
     public $category_id;
-    public $shop_id;
-    public $shop;
-
     public function generateSlug(){
         $this->slug = Str::slug($this->name);
     }
@@ -44,11 +41,6 @@ class AdminAddCategoryComponent extends Component
             $category = new category;
             $category->name = $this->name;
             $category->slug = $this->slug;
-            $category->shop_id = $this->shop;
-
-            if(Auth::user()->usertype === 'vendor'){
-                $category->shop_id = Auth::user()->shopseller->id;
-            }
             $category->save();
         }
         session()->flash('message', 'One Category Added Successfully');
@@ -56,7 +48,6 @@ class AdminAddCategoryComponent extends Component
     public function render()
     {
         $categories = category::all();
-        $shops = ShopSeller::all();
-        return view('livewire.admin.admin-add-category-component',['categories'=>$categories,'shops'=>$shops])->layout('layouts.admin');
+        return view('livewire.admin.admin-add-category-component',['categories'=>$categories])->layout('layouts.admin');
     }
 }

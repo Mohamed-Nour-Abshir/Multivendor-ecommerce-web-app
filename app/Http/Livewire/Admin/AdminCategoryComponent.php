@@ -22,12 +22,7 @@ class AdminCategoryComponent extends Component
     }
     public function render()
     {
-        if(Auth::user()->usertype === 'vendor'){
-            $categoires = category::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->paginate(5);
-        }
-        else{
-            $categoires = category::paginate(5);
-        }
+        $categoires = category::paginate(5);
         return view('livewire.admin.admin-category-component',['categories'=>$categoires])->layout('layouts.admin');
     }
 }

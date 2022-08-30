@@ -156,10 +156,6 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function(){
 // Vendor routes
 Route::middleware(['auth:sanctum', 'verified', 'authvendor'])->group(function(){
     Route::get('/vendor/dashboard',AdminComponent::class)->name('vendor.dashboard');
-//    admin categories
-   Route::get('/vendor/categories',AdminCategoryComponent::class)->name('vendor.categories');
-   Route::get('/vendor/category/Add',AdminAddCategoryComponent::class)->name('vendor.Add');
-   Route::get('/vendor/category/Edit/{category_slug}/{scategory_slug?}',AdminEditCategoryComponent::class)->name('vendor.Edit');
 //    admin products
    Route::get('/vendor/products',AdminProductComponent::class)->name('vendor.products');
    Route::get('/vendor/product/add',AddNewProductComponent::class)->name('vendor.Addproduct');

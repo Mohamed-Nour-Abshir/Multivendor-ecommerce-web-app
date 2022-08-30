@@ -223,13 +223,6 @@
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->is('*admin/categories*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{route('vendor.categories')}}">
-                  <i class="icon-grid fa-solid fa-certificate icon-grid menu-icon"></i>
-                  <span class="menu-title">Manage Categories</span>
-                </a>
-              </li>
-
               <li class="nav-item {{ request()->is('*admin/categories*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{route('vendor.manageshops')}}">
                   <i class="icon-grid fa-solid fa-certificate icon-grid menu-icon"></i>

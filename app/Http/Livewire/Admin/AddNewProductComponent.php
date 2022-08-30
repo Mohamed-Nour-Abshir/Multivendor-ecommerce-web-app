@@ -154,12 +154,7 @@ class AddNewProductComponent extends Component
     }
     public function render()
     {
-        if(Auth::user()->usertype === 'vendor'){
-            $categories = category::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->get();
-        }
-        else{
-            $categories = category::all();
-        }
+        $categories = category::all();
         $scategories = subcategory::where('category_id',$this->category_id)->get();
         if(Auth::user()->usertype === 'vendor'){
             $pattributes = ProductAttribute::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->get();
