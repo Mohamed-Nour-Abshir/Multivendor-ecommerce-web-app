@@ -15,7 +15,6 @@ class ShopSeller extends Model
     public function owner(){
         return $this->belongsTo(User::class,'user_id');
     }
-
     protected $table = "shop_sellers";
     public $fillable = ['name', 'description'];
 

@@ -5,8 +5,11 @@ namespace App\Http\Livewire;
 use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\product;
 use App\Models\Shipping;
+use App\Models\ShopSeller;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Cart;
 use Exception;
@@ -30,6 +33,9 @@ class CheckoutComponent extends Component
     public $province;
     public $country;
     public $zipcode;
+
+    // send order to it's vendor
+    public $shop_id;
 
     // billing address properties
     public $s_firstname;

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class AdminOrderDetailsComponent extends Component

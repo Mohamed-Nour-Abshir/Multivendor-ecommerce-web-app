@@ -216,28 +216,28 @@
 
 {{-- Vendor routes and rules  --}}
         @elseif(Auth::user()->usertype === 'vendor')
-            <li class="nav-item {{ request()->is('*admin/dashboard*') ? 'active' : '' }}">
+            <li class="nav-item ">
                 <a class="nav-link" href="{{route('vendor.dashboard')}}">
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
                 </a>
             </li>
 
-              <li class="nav-item {{ request()->is('*admin/categories*') ? 'active' : '' }}">
+              <li class="nav-item">
                 <a class="nav-link" href="{{route('vendor.manageshops')}}">
                   <i class="icon-grid fa-solid fa-certificate icon-grid menu-icon"></i>
-                  <span class="menu-title">Manage Shops</span>
+                  <span class="menu-title">My Shop</span>
                 </a>
               </li>
 
-              <li class="nav-item {{ request()->is('*admin/products*') ? 'active' : '' }}">
+              <li class="nav-item">
                 <a class="nav-link" href="{{route('vendor.products')}}">
                   <i class="fa-solid fa-computer icon-grid menu-icon"></i>
                   <span class="menu-title">Manage Products</span>
                 </a>
               </li>
 
-              <li class="nav-item {{ request()->is('*admin/attributes*') ? 'active' : '' }}">
+              <li class="nav-item">
                 <a class="nav-link" href="{{route('vendor.attributes')}}">
                   <i class="fa-solid fa-rectangle-pro icon-grid menu-icon"></i>
                   <span class="menu-title">Manage Product Attributes</span>
@@ -245,14 +245,14 @@
               </li>
 
 
-          <li class="nav-item {{ request()->is('*admin/coupons*') ? 'active' : '' }}">
+          <li class="nav-item">
             <a class="nav-link" href="{{route('vendor.coupons')}}">
                 <i class="fa-solid fa-tags icon-grid menu-icon"></i>
               <span class="menu-title">Manage Coupons</span>
             </a>
           </li>
 
-          <li class="nav-item {{ request()->is('*admin/orders*') ? 'active' : '' }}">
+          <li class="nav-item">
             <a class="nav-link" href="{{route('vendor.orders')}}">
               <i class="fa-solid fa-bag-shopping icon-grid menu-icon"></i>
               <span class="menu-title">Manage Orders</span>

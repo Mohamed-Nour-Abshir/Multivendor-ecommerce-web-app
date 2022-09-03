@@ -10,7 +10,11 @@
                              <p class="card-title"> Order Details</p>
                             </div>
                             <div class="col-md-6">
-                                <a href="{{route('admin.orders')}}" class="btn btn-success pull-right">All Orders</a>
+                                @if (Auth::user()->usertype === 'vendor')
+                                    <a href="{{route('vendor.orders')}}" class="btn btn-success pull-right">All Orders</a>
+                                @else
+                                    <a href="{{route('admin.orders')}}" class="btn btn-success pull-right">All Orders</a>
+                                @endif
                             </div>
                         </div>
 

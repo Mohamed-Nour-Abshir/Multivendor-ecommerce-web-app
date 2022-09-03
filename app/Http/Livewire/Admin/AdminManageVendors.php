@@ -16,7 +16,7 @@ class AdminManageVendors extends Component
     public function render()
     {
         if(Auth::user()->usertype === 'vendor'){
-            $vendors = ShopSeller::where('id', Auth::user()->shopseller->id)->orderBy('id','DESC')->get();
+            $vendors = ShopSeller::where('id', Auth::user()->shopseller->id)->orderBy('id','DESC')->paginate(10);
         }
         else{
             $vendors = ShopSeller::paginate(10);

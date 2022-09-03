@@ -29,6 +29,7 @@
                                     <th>Shop Name</th>
                                     <th>Shop Descripion</th>
                                     <th>Shop Status</th>
+                                    <th>Commision Status</th>
                                     <th>Registered Date</th>
                                     <th colspan="2" class="text-center">Action</th>
                                 </tr>
@@ -47,6 +48,12 @@
                                             <span class="btn btn-danger btn-sm">In active</span>
                                             @endif
                                         </td>
+                                        {{-- <td>{{$vendor->owner->commision->status}}</td> --}}
+                                        @if($vendor->owner->commision->status === 'approved')
+                                            <td style="color: green;"><i class="fa fa-check" aria-hidden="true"></i> Paid</td>
+                                        @else
+                                        <td style="color: red;"><i class="fa fa-clock" aria-hidden="true"></i>Pending</td>
+                                        @endif
                                         <td>{{$vendor->created_at}}</td>
                                         <td>
                                             @if (Auth::user()->usertype === 'vendor')

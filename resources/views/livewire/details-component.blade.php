@@ -74,6 +74,15 @@
                         @else
                             <div class="wrap-price"><span class="product-price">${{$product->regular_price}}</span></div>
                         @endif
+                        @if ($product->shop_id)
+                            <div class="stock-info in-stock">
+                                <p class="availability">Shop: <b>{{$product->shop->name}}</b></p>
+                            </div>
+                        @else
+                            <div class="stock-info in-stock">
+                                <p class="availability">Shop: <b>Heer-Sare</b></p>
+                            </div>
+                        @endif
                         <div class="stock-info in-stock">
                             <p class="availability">Availability: <b>{{$product->stock_status}}</b></p>
                         </div>

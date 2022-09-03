@@ -6,10 +6,16 @@
             <div class="row"></div>
             <ul>
                 <li class="item-link"><a href="/" class="link">home</a></li>
-                <li class="item-link"><span>Digital & Electronics</span></li>
+                <li class="item-link"><span>Heer-Sare</span></li>
                 @if (Route::has('login'))
                     @auth
-                        <li class="item-link"><a href="{{route('open-your-shop')}}" class="link btn btn-warning" style="color: #fff;">Open your shop</a></li>
+                        @if (Auth::user()->usertype === 'vendor')
+                            <li class="item-link"><a href="{{route('vendor.dashboard')}}" class="btn btn-success link" style="color: #fff;">You already have a shop</a></li>
+                        @elseif (Auth::user()->usertype === 'ADM')
+                            <li class="item-link"><a href="{{route('admin.dashboard')}}" class="btn btn-success link" style="color: #fff;">You are Admin</a></li>
+                        @else
+                            <li class="item-link"><a href="{{route('open-your-shop')}}" class="link btn btn-warning" style="color: #fff;">Open your shop</a></li>
+                        @endif
                     @endauth
                 @endif
             </ul>
@@ -26,7 +32,7 @@
 
                 <div class="wrap-shop-control">
 
-                    <h1 class="shop-title">Digital & Electronics</h1>
+                    <h1 class="shop-title">All Products in this mall</h1>
 
                     <div class="wrap-right">
 

@@ -28,7 +28,6 @@
                     <table class="table table-striped table-bordered mb-3">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Stock</th>
@@ -45,13 +44,17 @@
                         <tbody>
                             @foreach ($products as $product)
                                 <tr>
-                                    <td>{{$product->id}}</td>
                                     <td><img src="{{asset('assets/images/products')}}/{{$product->image}}" alt="products" width="60"></td>
                                     <td>{{$product->name}}</td>
                                     <td>{{$product->stock_status}}</td>
                                     @if(Auth::user()->usertype === 'ADM')
-                                        <td>{{$product->shop->name}}</td>
+                                        @if ($product->shop_id)
+                                            <td>{{$product->shop->name}}</td>
+                                        @else
+                                            <td>Heer Sare</td>
+                                        @endif
                                     @endif
+
                                     <td>${{$product->regular_price}}</td>
                                     <td>${{$product->sale_price}}</td>
                                     <td>{{$product->category->name}}</td>

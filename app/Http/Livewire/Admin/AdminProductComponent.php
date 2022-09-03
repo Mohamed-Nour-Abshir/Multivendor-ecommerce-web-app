@@ -29,18 +29,23 @@ class AdminProductComponent extends Component
     }
     public function render()
     {
-        if(Auth::user()->usertype === 'vendor'){
-            $products = product::where('shop_id', Auth::user()->shopseller->id)->orderBy('id','DESC')->paginate(5);
-        }
-        else{
             $search = '%'. $this->searchTerm . '%';
             $products = product::where('name','LIKE',$search)
                                     ->orwhere('stock_status','LIKE',$search)
                                     ->orwhere('regular_price','LIKE',$search)
                                     ->orwhere('sale_price','LIKE',$search)
-                                    ->orderBy('id','DESC')->paginate(5);
-        }
+                                    ->orderBy('id','DESC')->paginate(10);
 
+            if(Auth::user()->usertype === 'vendor'){
+                $products = product::where('shop_id', Auth::user()->shopseller->id)
+                                        ->where(function($query) use ($search){
+                                        return $query
+                                        ->where('name','LIKE',$search)
+                                        ->orwhere('stock_status','LIKE',$search)
+                                        ->orwhere('regular_price','LIKE',$search)
+                                        ->orwhere('sale_price','LIKE',$search);
+                                        })->orderBy('id','DESC')->paginate(10);
+            }
         return view('livewire.admin.admin-product-component',['products'=>$products])->layout('layouts.admin');
     }
 }

@@ -66,4 +66,7 @@ class User extends Authenticatable
     public function shopseller(){
         return $this->hasOne(ShopSeller::class,'user_id');
     }
+    public function commision(){
+        return $this->hasOne(Commision::class,'user_id');
+    }
 }

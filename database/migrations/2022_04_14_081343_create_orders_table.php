@@ -34,8 +34,6 @@ return new class extends Migration
             $table->boolean('is_shipping_different')->default(false);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('shop_id')->unsigned()->nullable();
-            $table->foreign('shop_id')->references('id')->on('shop_sellers')->onDelete('cascade');
         });
     }
 
