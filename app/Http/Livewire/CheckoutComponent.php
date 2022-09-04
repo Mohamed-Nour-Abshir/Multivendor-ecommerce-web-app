@@ -140,6 +140,8 @@ class CheckoutComponent extends Component
             $orderItem = new OrderItem();
             $orderItem->product_id = $item->id;
             $orderItem->order_id =$order->id;
+            $shop = product::find($item->id);
+            $orderItem->shop_id = $shop->shop_id;
             $orderItem->price = $item->price;
             $orderItem->quantity = $item->qty;
             if($item->options){

@@ -20,4 +20,7 @@ class OrderItem extends Model
     public function review(){
         return $this->hasOne(Reveiw::class,'order_item_id');
     }
+    public function shop(){
+        return $this->belongsTo(ShopSeller::class, 'shop_id');
+    }
 }

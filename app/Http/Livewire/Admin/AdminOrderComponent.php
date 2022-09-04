@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -24,7 +25,8 @@ class AdminOrderComponent extends Component
     public function render()
     {
         if(Auth::user()->usertype === 'vendor'){
-            $orders = Order::where('shop_id',Auth::user()->shopseller->id)->orderBy('created_at','DESC')->paginate(12);
+            $orders = OrderItem::where('shop_id',Auth::user()->shopseller->id)->orderBy('created_at','DESC')->paginate(12);
+            // dd(Auth::user()->shopseller->id);
         }
         else{
             $orders = Order::orderBy('created_at','DESC')->paginate(12);

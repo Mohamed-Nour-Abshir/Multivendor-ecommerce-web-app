@@ -77,6 +77,7 @@
                 Here are all the latest orders
             </p>
             <div class="table-responsive pt-3">
+                @if(Auth::user()->usertype === 'ADM')
                 <table class="table table-bordered mb-3">
                 <thead>
                     <tr>
@@ -116,6 +117,54 @@
                 </tbody>
             </table>
             {{$orders->links()}}
+            @else
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Quantity</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>ZipCode</th>
+                        <th>Order Status</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($orders as $order)
+                        <tr>
+                            <td><figure><img src="{{asset('assets/images/products')}}/{{$order->product->image}}" alt="{{$order->product->name}}"></figure></td>
+                            <td>{{$order->product->name}}</td>
+                            <td>${{$order->price}}</td>
+                            <td>{{$order->quantity}}</td>
+                            <td>{{$order->order->firstname}}</td>
+                            <td>{{$order->order->lastname}}</td>
+                            <td>{{$order->order->mobile}}</td>
+                            <td>{{$order->order->email}}</td>
+                            <td>{{$order->order->zipcode}}</td>
+                            <td>{{$order->order->status}}</td>
+                            <td>{{$order->created_at}}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-success btn-sm dropdown-toggle" type="submit" data-toggle="dropdown">Status
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item"><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'delivered')">Delivered</a></li>
+                                        <li class="dropdown-item"><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Canceled</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+            {{$orders->links()}}
+            @endif
             </div>
             </div>
         </div>
