@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GeneratePdfInvoice;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\AboutComponent;
 use App\Http\Livewire\ContactUsComponent;
@@ -30,6 +31,7 @@ use App\Http\Livewire\Admin\AdminEditProductAttributeComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminEditUsers;
 use App\Http\Livewire\Admin\AdminEditVendors;
+use App\Http\Livewire\Admin\AdminGenerateInvoice;
 use App\Http\Livewire\Admin\AdminHomeCategoriesComponent;
 use App\Http\Livewire\Admin\AdminHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminManageUsers;
@@ -133,6 +135,7 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function(){
 //    orders
    Route::get('/admin/orders',AdminOrderComponent::class)->name('admin.orders');
    Route::get('/admin/orders/{order_id}',AdminOrderDetailsComponent::class)->name('admin.orderdetails');
+   Route::get('/admin/genaret_pdf/{order_id}',[GeneratePdfInvoice::class,'invoice'])->name('admin.generatePDF');
 
 //    contact-us
    Route::get('/admin/contacts',AdminContactUsComponent::class)->name('admin.contacts');

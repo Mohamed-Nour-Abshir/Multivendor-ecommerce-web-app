@@ -51,7 +51,7 @@
                          <p class="card-title">Ordered Items</p>
                         </div>
                         <div class="col-md-6">
-
+                            <a href="{{route('admin.generatePDF',['order_id'=>$order->id])}}" class="btn btn-success float-right py-1"><i class="fa fa-download" aria-hidden="true"></i> Generate PDF</a>
                         </div>
                     </div>
                    </div>
