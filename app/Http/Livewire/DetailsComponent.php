@@ -23,7 +23,7 @@ class DetailsComponent extends Component
         return redirect()->route('product.cart');
     }
     public function increaseQuantity(){
-        $product = product::where('slug',$this->slug)->first();
+        $product = product::where('slug',$this->slug)->where('status','approved')->first();
         if( $this->qty < $product->quantity){
         $this->qty++;
         }
@@ -44,9 +44,9 @@ class DetailsComponent extends Component
 
     public function render()
     {
-        $product = product::where('slug',$this->slug)->first();
-        $popular_products = product::inRandomOrder()->limit(4)->get();
-        $related_products = product::where('category_id',$product->category_id)->inRandomOrder()->limit(5)->get();
+        $product = product::where('slug',$this->slug)->where('status','approved')->first();
+        $popular_products = product::inRandomOrder()->limit(4)->where('status','approved')->get();
+        $related_products = product::where('category_id',$product->category_id)->inRandomOrder()->limit(5)->where('status','approved')->get();
         $sale = Sale::find(1);
         return view('livewire.details-component',['product'=>$product, 'popular_products'=>$popular_products, 'related_products'=>$related_products,'sale'=>$sale])->layout('layouts.home');
     }

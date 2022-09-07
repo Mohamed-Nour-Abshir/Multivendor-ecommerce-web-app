@@ -128,7 +128,7 @@
             </a>
           </li>
 
-          <li class="nav-item {{ request()->is('*admin/categories*') ? 'active' : '' }}">
+          <li class="nav-item {{ request()->is('*admin/users*') ? 'active' : '' }}">
             <a class="nav-link" href="{{route('admin.users')}}">
               <i class="icon-grid fa-solid fa-certificate icon-grid menu-icon"></i>
               <span class="menu-title">Manage Users</span>

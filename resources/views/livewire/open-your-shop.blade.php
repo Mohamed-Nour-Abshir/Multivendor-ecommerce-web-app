@@ -34,7 +34,7 @@
                                 <label for="frm-reg-lname">Description*</label>
                                 <input type="text" id="frm-reg-lname" placeholder="Shop Description" required wire:model="description">
                             </fieldset>
-                            <span style="color: green; margin-top:10px;">If you need to be part of our sellers you must pay <span style="color: red; font-weight:bold;">$500</span></span>
+                            <span style="color: green; margin-top:10px;">If you want to be a life-time partner you must pay <span style="color: red; font-weight:bold;">$500</span> for a commission</span>
                             {{-- commision transaction  --}}
                             <div class="summary summary-checkout m-5">
                                 <div class="summary-item payment-method">

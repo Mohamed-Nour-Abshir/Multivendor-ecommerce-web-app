@@ -8,7 +8,7 @@
         </div>
     </div>
     </div>
-
+    @if(Auth::user()->usertype === 'ADM')
     <div class="row">
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card tale-bg">
@@ -77,7 +77,6 @@
                 Here are all the latest orders
             </p>
             <div class="table-responsive pt-3">
-                @if(Auth::user()->usertype === 'ADM')
                 <table class="table table-bordered mb-3">
                 <thead>
                     <tr>
@@ -118,6 +117,78 @@
             </table>
             {{$orders->links()}}
             @else
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card tale-bg">
+                    <div class="card-people mt-auto">
+                        <img src="images/dashboard/people.svg" alt="people">
+                        <div class="weather-info">
+                        <div class="d-flex">
+                            <div>
+                            <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>31<sup>C</sup></h2>
+                            </div>
+                            <div class="ml-2">
+                            <h4 class="location font-weight-normal">Dhaka</h4>
+                            <h6 class="font-weight-normal">Bangaldesh</h6>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 grid-margin transparent">
+                    <div class="row">
+                    <div class="col-md-6 py-5 mb-4 stretch-card transparent">
+                        <div class="card card-tale">
+                        <div class="card-body">
+
+                            <p class="mb-4">Total Revenue</p>
+                            {{$revenue=null}}
+                            @foreach ($orders as $order)
+                            <?php
+                                if ($order->order->status =="delivered") {
+                                    $total = $order->price*$order->quantity;
+
+                                    $revenue = $total + $revenue;
+                                }
+
+                            ?>
+                            @endforeach
+                            <p class="fs-30 mb-2">${{$revenue}}</p>
+
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4 py-5 stretch-card transparent">
+                        <div class="card card-dark-blue">
+                        <div class="card-body">
+                            <p class="mb-4">Total Sales</p>
+                            {{$totalSales = null}}
+                            @foreach ($orders as $order)
+                            <?php
+
+                                if ($order->order->status =="delivered") {
+                                    $totalSales++;
+                                }
+                            ?>
+                            @endforeach
+                            <p class="fs-30 mb-2">{{$totalSales}}</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                        <h4 class="card-title">Latest Orders</h4>
+                        <p class="card-description">
+                            Here are all the latest orders
+                        </p>
+                        <div class="table-responsive pt-3">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -148,16 +219,6 @@
                             <td>{{$order->order->zipcode}}</td>
                             <td>{{$order->order->status}}</td>
                             <td>{{$order->created_at}}</td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-success btn-sm dropdown-toggle" type="submit" data-toggle="dropdown">Status
-                                        <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item"><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'delivered')">Delivered</a></li>
-                                        <li class="dropdown-item"><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Canceled</a></li>
-                                    </ul>
-                                </div>
-                            </td>
                         </tr>
                     @endforeach
 

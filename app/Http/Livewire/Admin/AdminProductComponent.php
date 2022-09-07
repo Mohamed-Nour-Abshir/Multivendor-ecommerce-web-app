@@ -27,6 +27,21 @@ class AdminProductComponent extends Component
         $product->delete();
         Session()->flash('message', 'Product has been deleted Successfully');
     }
+    public function updateProductStatus($id,$status){
+        $product = product::find($id);
+        $product->status = $status;
+        if($status == "approved"){
+            $product->status = "approved";
+            $message = 'Product has been APPROVED successfully!';
+        }
+        elseif($status == "rejected"){
+            $product->status = "rejected";
+            $message = 'Product has been REJECTED successfully!';
+        }
+        $product->save();
+        session()->flash('message',$message);
+
+    }
     public function render()
     {
             $search = '%'. $this->searchTerm . '%';

@@ -1,5 +1,5 @@
 <div>
-    <div class="container" style="padding: 30px 0;">
+    <div class="container" >
         <div class="row">
             <div class="col-md-12">
                 <div class="card p-5">
@@ -66,6 +66,7 @@
 
                             </tbody>
                         </table>
+                        {{$orders->links()}}
                         @else
                         <table class="table table-striped table-bordered">
                             <thead>
@@ -81,6 +82,7 @@
                                     <th>ZipCode</th>
                                     <th>Order Status</th>
                                     <th>Order Date</th>
+                                    <th>Generate Receipt</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,16 +99,7 @@
                                         <td>{{$order->order->zipcode}}</td>
                                         <td>{{$order->order->status}}</td>
                                         <td>{{$order->created_at}}</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a class="btn btn-success btn-sm dropdown-toggle" type="submit" data-toggle="dropdown">Status
-                                                    <span class="caret"></span></a>
-                                                <ul class="dropdown-menu">
-                                                    <li class="dropdown-item"><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'delivered')">Delivered</a></li>
-                                                    <li class="dropdown-item"><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Canceled</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
+                                        <td><a href="{{route('vendor.generatePDF',['order_id'=>$order->id])}}" class="btn btn-success float-right py-1"><i class="fa fa-download" aria-hidden="true"></i> Generate PDF</a></td>
                                     </tr>
                                 @endforeach
 

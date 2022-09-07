@@ -26,7 +26,6 @@ class AdminOrderComponent extends Component
     {
         if(Auth::user()->usertype === 'vendor'){
             $orders = OrderItem::where('shop_id',Auth::user()->shopseller->id)->orderBy('created_at','DESC')->paginate(12);
-            // dd(Auth::user()->shopseller->id);
         }
         else{
             $orders = Order::orderBy('created_at','DESC')->paginate(12);

@@ -86,7 +86,11 @@
                                         <a title="account" href="#">My Account({{Auth::user()->name}})<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                         <ul class="submenu curency" >
                                             <li class="menu-item" >
-                                                <a title="dashboard" href="{{route('vendor.dashboard')}}">Dashboard</a>
+                                                @if(Auth::user()->shopseller->is_active === 1)
+                                                    <a title="dashboard" href="{{route('vendor.dashboard')}}">Dashboard</a>
+                                                @else
+                                                    <p class="text-danger bg-danger">Your Shop is Inactive</p>
+                                                @endif
                                             </li>
 
                                             <li class="menu-item">

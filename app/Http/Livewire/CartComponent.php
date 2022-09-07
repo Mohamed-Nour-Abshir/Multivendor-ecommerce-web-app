@@ -148,7 +148,7 @@ class CartComponent extends Component
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
         $sale = Sale::find(1);
-        $popular_products = product::inRandomOrder()->limit(4)->get();
+        $popular_products = product::inRandomOrder()->limit(4)->where('status','approved')->get();
         return view('livewire.cart-component',['popular_products'=>$popular_products,'sale'=>$sale])->layout('layouts.home');
     }
 }

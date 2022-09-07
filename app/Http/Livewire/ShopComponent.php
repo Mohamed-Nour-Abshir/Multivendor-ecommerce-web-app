@@ -49,16 +49,18 @@ class ShopComponent extends Component
     public function render()
     {
         if($this->sorting == 'date'){
-           $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pageSize);
+           $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('status','approved')->orderBy('created_at','DESC')->paginate($this->pageSize);
         }
         else if($this->sorting == 'price'){
-            $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('regular_price','ASC')->paginate($this->pageSize);
+            $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('status','approved')->orderBy('regular_price','ASC')->paginate($this->pageSize);
          }
          else if($this->sorting == 'price-desc'){
-            $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('regular_price','DESC')->paginate($this->pageSize);
+            $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('status','approved')->orderBy('regular_price','DESC')->paginate($this->pageSize);
          }
          else{
-            $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pageSize);
+            $products = product::whereBetween('regular_price',[$this->min_price,$this->max_price])
+                                ->where('status','approved')
+                                ->paginate($this->pageSize);
          }
 
          $categories = category::all();
@@ -67,7 +69,7 @@ class ShopComponent extends Component
             Cart::instance('cart')->store(Auth::user()->email);
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
-        $popular_products = product::inRandomOrder()->limit(4)->get();
+        $popular_products = product::inRandomOrder()->limit(4)->where('status','approved')->get();
         return view('livewire.shop-component',['products'=>$products, 'categories'=>$categories,'popular_products'=>$popular_products])->layout('layouts.home');
     }
 }

@@ -178,6 +178,7 @@ Route::middleware(['auth:sanctum', 'verified', 'authvendor'])->group(function(){
 //    orders
    Route::get('/vendor/orders',AdminOrderComponent::class)->name('vendor.orders');
    Route::get('/vendor/orders/{order_id}',AdminOrderDetailsComponent::class)->name('vendor.orderdetails');
+   Route::get('/vendor/genaret_pdf/{order_id}',[GeneratePdfInvoice::class,'invoice'])->name('vendor.generatePDF');
 
 });
 

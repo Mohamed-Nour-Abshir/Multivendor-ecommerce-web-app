@@ -33,7 +33,11 @@
                                 <th>Stock</th>
                                 @if(Auth::user()->usertype === 'ADM')
                                     <th>Shop Name</th>
-                                @endif
+                                    <th>Product Status</th>
+                                 @endif
+                                 @if (Auth::user()->usertype === 'vendor')
+                                    <th>Product Status</th>
+                                 @endif
                                 <th>Price</th>
                                 <th>Sale Price</th>
                                 <th>Category</th>
@@ -54,10 +58,45 @@
                                             <td>Heer Sare</td>
                                         @endif
                                     @endif
+                                    @if (Auth::user()->usertype === 'ADM')
+                                        @if ($product->status == 'pending')
+                                            <td>
+                                                <div class="dropdown">
+                                                    <a class="btn btn-success btn-sm dropdown-toggle" type="submit" data-toggle="dropdown">Status
+                                                        <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li class="dropdown-item"><a href="#" wire:click.prevent="updateProductStatus({{$product->id}},'approved')">Approval</a></li>
+                                                        <li class="dropdown-item"><a href="#" wire:click.prevent="updateProductStatus({{$product->id}},'rejected')">Reject</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        @else
+                                            @if ($product->status == 'approved')
+                                              <td class="text-success"><i class="fa-solid fa-check text-success"></i> {{$product->status}}</td>
+                                            @else
+                                                <td class="text-danger"><i class="fa-solid fa-remove text-danger"></i> {{$product->status}}</td>
+                                            @endif
+                                        @endif
 
+                                    @else
+                                        @if ($product->status == 'approved')
+                                            <td class="text-center">
+                                                <i class="fa-solid fa-check text-success"><span class="ml-2">{{$product->status}}</span></i>
+                                            </td>
+                                        @elseif ($product->status == 'rejected')
+                                            <td class="text-center text-danger">
+                                                <i class="fa-solid fa-repeat"><span class="ml-2">{{$product->status}}</span>
+                                            </td>
+                                        @else
+                                            <td class="text-center text-info">
+                                                <i class="fa-solid fa-clock"> <span class="ml-2">{{$product->status}}</span></i>
+                                            </td>
+                                        @endif
+                                    @endif
                                     <td>${{$product->regular_price}}</td>
                                     <td>${{$product->sale_price}}</td>
                                     <td>{{$product->category->name}}</td>
+
                                     <td>{{$product->created_at}}</td>
                                     <td>
                                         @if(Auth::user()->usertype === 'vendor')

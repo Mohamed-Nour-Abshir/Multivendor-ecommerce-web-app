@@ -54,20 +54,20 @@ class SearchComponent extends Component
     public function render()
     {
         if($this->sorting == 'date'){
-           $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pageSize);
+           $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->where('status','approved')->orderBy('created_at','DESC')->paginate($this->pageSize);
         }
         else if($this->sorting == 'price'){
-            $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('regular_price','ASC')->paginate($this->pageSize);
+            $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->where('status','approved')->orderBy('regular_price','ASC')->paginate($this->pageSize);
          }
          else if($this->sorting == 'price-desc'){
-            $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('regular_price','DESC')->paginate($this->pageSize);
+            $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->where('status','approved')->orderBy('regular_price','DESC')->paginate($this->pageSize);
          }
          else{
-            $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pageSize);
+            $products = product::where('name', 'like','%'.$this->search .'%')->where('category_id', 'like', '%'.$this->product_cat_id.'%')->whereBetween('regular_price',[$this->min_price,$this->max_price])->where('status','approved')->paginate($this->pageSize);
          }
 
          $categories = category::all();
-         $popular_products = product::inRandomOrder()->limit(4)->get();
+         $popular_products = product::inRandomOrder()->where('status','approved')->limit(4)->get();
         return view('livewire.search-component',['products'=>$products, 'categories'=>$categories,'popular_products'=>$popular_products])->layout('layouts.home');
     }
 }
